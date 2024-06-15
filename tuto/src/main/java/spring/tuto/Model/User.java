@@ -1,10 +1,14 @@
 package spring.tuto.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -15,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
-@Table (name = user.TABLE_NAME)
-public class user {
+@Table (name = User.TABLE_NAME)
+public class User {
     public static final String TABLE_NAME = "user";
 
     public interface createUser {};
@@ -40,12 +44,14 @@ public class user {
     @Size  (groups = {createUser.class, updateUser.class}, min = 8, max = 30)
     private String password;
 
-    
-    public user() {
+    @OneToMany(mappedBy = "user")
+    private List<Tasks> tasks = new ArrayList<Tasks>();
+
+    public User() {
     }
     
 
-    public user(Integer id, String username, String password) {
+    public User(Integer id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -76,16 +82,24 @@ public class user {
         this.password = password;
     }
 
+    public List<Tasks> getTasks() {
+        return this.tasks;
+    }
+
+    public void setTasks(List<Tasks> tasks) {
+        this.tasks = tasks;
+    }
+
     @Override
     public boolean equals(Object obj){
         if (obj == this)
             return true;
         if (obj == null)
             return false;
-        if (!(obj instanceof user))
+        if (!(obj instanceof User))
             return false;
 
-        user other = (user) obj;
+        User other = (User) obj;
         if (this.id == null)
             if (other.id != null)
                 return false;
