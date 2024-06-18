@@ -1,4 +1,4 @@
-package spring.tuto.Model;
+package spring.tuto.Models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class User {
     @Id
     @Column (name = "id")
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     
     @Column (name = "username", nullable = false, unique = true, length = 100)
     @NotNull (groups = createUser.class)
@@ -51,18 +51,18 @@ public class User {
     }
     
 
-    public User(Integer id, String username, String password) {
+    public User(Long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
     
 
-    public Integer getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setID(Long id) {
         this.id = id;
     }
 

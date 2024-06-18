@@ -1,4 +1,4 @@
-package spring.tuto.Model;
+package spring.tuto.Models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +21,7 @@ public class Tasks {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name = "id", unique = true)
-    private Integer id;
+    private Long id;
     
     @ManyToOne
     @JoinColumn (name = "user_id", updatable = false)
@@ -38,18 +38,20 @@ public class Tasks {
     }
 
 
-    public Tasks(Integer id, User user, String description) {
+    public Tasks(Long id, User user, String description) {
         this.id = id;
         this.user = user;
         this.description = description;
     }
 
 
-    public Integer getId() {
+// Essa parte de get e set pode ser substituída(e deve) por @getters e 
+// @setters em cima de cada objeto.
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
